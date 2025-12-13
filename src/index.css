@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-nutanics-light text-nutanics-black;
+  }
+  
+  ::selection {
+    @apply bg-nutanics-blue/30 text-nutanics-dark;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-6 py-12 md:px-12 lg:px-24;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-nutanics-blue to-nutanics-dark text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-nutanics-blue text-nutanics-blue font-semibold rounded-lg hover:bg-nutanics-blue/10 transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-nutanics-light;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-nutanics-gray rounded-full hover:bg-nutanics-blue;
+}
