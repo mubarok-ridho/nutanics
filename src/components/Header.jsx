@@ -94,7 +94,7 @@ const Header = () => {
               </h1>
               <p className="text-xs text-blue-600/70 font-medium leading-tight max-w-[140px] tracking-wide">
                 <span className="bg-gradient-to-r from-blue-600/80 to-cyan-500/80 bg-clip-text text-transparent">
-                  Secure Your Digital Future
+                  Numerik Talenta Teknologi
                 </span>
               </p>
             </div>
@@ -155,7 +155,7 @@ const Header = () => {
           {/* Desktop CTA Button dengan blue gradient */}
           <div className="hidden lg:flex items-center space-x-4 animate-slide-in-right">
             {/* Contact badge dengan blue gradient */}
-            <a 
+            {/* <a 
               href="tel:+622112345678" 
               className="group/phone relative flex items-center space-x-3 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 hover:border-blue-300 transition-all duration-500 shadow-sm"
             >
@@ -171,7 +171,7 @@ const Header = () => {
                   +62 21 1234 5678
                 </div>
               </div>
-            </a>
+            </a> */}
             
             {/* Blue gradient CTA Button */}
             <button 
