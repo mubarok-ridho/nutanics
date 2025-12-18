@@ -78,7 +78,7 @@ const Header = () => {
               <div className="relative p-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 rounded-xl animate-gradient">
                 <div className="p-2 bg-white rounded-lg shadow-inner">
                   <img 
-                    src="https://res.cloudinary.com/doafwrddd/image/upload/v1765691516/image_5_1_mhx7xh.png" 
+                    src="https://res.cloudinary.com/doafwrddd/image/upload/v1766038408/Nutanics_zoqljl.png" 
                     alt="PT. Nutanics - Cyber Security Solutions" 
                     className="h-10 w-auto object-contain filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
                     loading="eager"

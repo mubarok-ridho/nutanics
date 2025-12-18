@@ -13,10 +13,10 @@ const Hero = () => {
   ]
 
   const services = [
-    { name: 'AI Solutions', description: 'Enterprise AI implementation & consulting' },
+    { name: 'Software Solutions', description: 'Software development needed & consulting' },
     { name: 'Cloud Infrastructure', description: 'Scalable cloud architecture & migration' },
     { name: 'Data Analytics', description: 'Advanced analytics & business intelligence' },
-    { name: 'IoT Systems', description: 'Connected devices & smart solutions' }
+    { name: 'Security Management', description: 'Build strong security environment' }
   ]
 
   useEffect(() => {
