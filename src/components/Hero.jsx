@@ -1,28 +1,78 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const Hero = () => {
   const [activeStat, setActiveStat] = useState(0)
   const [hoveredService, setHoveredService] = useState(null)
   const [textReveal, setTextReveal] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const containerRef = useRef(null)
 
+  // Updated stats dengan lebih fokus pada software dev
   const stats = [
-    { value: '50+', label: 'Global Enterprises', description: 'Digital Transformation Partners' },
-    { value: '99.9%', label: 'System Reliability', description: 'Enterprise Grade SLA' },
-    { value: '200+', label: 'Projects Delivered', description: 'Successful Implementations' },
-    { value: '5+', label: 'Industry Awards', description: 'Excellence Recognition' }
+    { value: '150+', label: 'Software Projects', description: 'Delivered Successfully', color: 'text-blue-600', icon: '💻' },
+    { value: '99.9%', label: 'Code Quality', description: 'Industry Best Practices', color: 'text-cyan-600', icon: '⚡' },
+    { value: '50+', label: 'Global Clients', description: 'Across 20 Countries', color: 'text-indigo-600', icon: '🌍' },
+    { value: '5+', label: 'Tech Awards', description: 'Innovation Excellence', color: 'text-purple-600', icon: '🏆' }
   ]
 
+  // Services dengan lebih fokus pada software development
   const services = [
-    { name: 'Software Solutions', description: 'Software development needed & consulting' },
-    { name: 'Cloud Infrastructure', description: 'Scalable cloud architecture & migration' },
-    { name: 'Data Analytics', description: 'Advanced analytics & business intelligence' },
-    { name: 'Security Management', description: 'Build strong security environment' }
+    { 
+      name: 'Custom Software', 
+      description: 'Tailored solutions for unique business challenges',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+      color: 'from-blue-500 to-cyan-500'
+    },
+    { 
+      name: 'Cloud Platforms', 
+      description: 'Scalable infrastructure for growing businesses',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4 4 0 003 15z" />
+        </svg>
+      ),
+      color: 'from-indigo-500 to-purple-500'
+    },
+    { 
+      name: 'AI & Analytics', 
+      description: 'Intelligent insights and automation solutions',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      color: 'from-cyan-500 to-teal-500'
+    },
+    { 
+      name: 'DevOps & Security', 
+      description: 'Secure and efficient development pipelines',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      color: 'from-violet-500 to-pink-500'
+    }
+  ]
+
+  // Floating code elements untuk efek software development
+  const codeElements = [
+    { text: 'const innovate = () => {', top: '15%', left: '10%', delay: '0s' },
+    { text: 'function transformBusiness()', top: '25%', left: '85%', delay: '0.5s' },
+    { text: '<DevOps pipeline />', top: '70%', left: '15%', delay: '1s' },
+    { text: 'AI.analyze(data)', top: '80%', left: '80%', delay: '1.5s' },
+    { text: 'cloud.scale(infra)', top: '40%', left: '20%', delay: '2s' },
+    { text: 'security.protect()', top: '60%', left: '70%', delay: '2.5s' }
   ]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStat((prev) => (prev + 1) % stats.length)
-    }, 4000)
+    }, 3000)
     return () => clearInterval(interval)
   }, [])
 
@@ -31,246 +81,312 @@ const Hero = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  // Mouse tracking untuk efek parallax
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!containerRef.current) return
+      
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+      
+      setMousePosition({ x, y })
+    }
+
+    const container = containerRef.current
+    container.addEventListener('mousemove', handleMouseMove)
+    
+    return () => container.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
   return (
     <section 
+      ref={containerRef}
       id="home" 
-      className="relative min-h-screen pt-24 pb-20 lg:pt-32 lg:pb-24 overflow-hidden"
+      className="relative min-h-screen pt-20 pb-16 lg:pt-28 lg:pb-20 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50/30"
     >
-      {/* Main Background Image with Colorful Overlay */}
-      <div className="absolute inset-0">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://res.cloudinary.com/doafwrddd/image/upload/v1765811552/asset_d7amsx.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        ></div>
-        
-        {/* Colorful Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/15 to-cyan-500/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-pink-500/10 via-transparent to-indigo-500/15"></div>
-        
-        {/* White Overlay for Content Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/90"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/95 to-white/90"></div>
-        
-        {/* Light Blue Accent Gradient */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-blue-50/40 to-transparent"></div>
-        
-        {/* Floating Colorful Shapes */}
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-purple-400/15 to-pink-400/15 rounded-full blur-3xl"></div>
-        <div className="absolute top-2/3 right-1/3 w-48 h-48 bg-gradient-to-r from-indigo-400/15 to-blue-400/15 rounded-full blur-3xl"></div>
-        
-        {/* Subtle Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Grid pattern untuk coding theme */}
+        <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #3B82F6 1px, transparent 1px)`,
+            backgroundImage: `
+              linear-gradient(to right, #3B82F6 1px, transparent 1px),
+              linear-gradient(to bottom, #3B82F6 1px, transparent 1px)
+            `,
             backgroundSize: '40px 40px'
           }}></div>
         </div>
+
+        {/* Floating code snippets */}
+        {codeElements.map((code, index) => (
+          <div
+            key={index}
+            className="absolute font-mono text-sm text-blue-400/40 animate-float pointer-events-none"
+            style={{
+              top: code.top,
+              left: code.left,
+              animationDelay: code.delay,
+              transform: `translate(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.05}px)`
+            }}
+          >
+            {code.text}
+          </div>
+        ))}
+
+        {/* Abstract tech shapes */}
+        <div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl"
+          style={{
+            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+          }}
+        ></div>
+        <div 
+          className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-400/8 to-purple-400/8 rounded-full blur-3xl"
+          style={{
+            transform: `translate(${-mousePosition.x * 0.02}px, ${-mousePosition.y * 0.02}px)`
+          }}
+        ></div>
       </div>
 
       {/* Main Content */}
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header Section */}
-          <div className="text-center mb-16">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full mb-8 border border-blue-100 transition-all duration-700 ${textReveal ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-blue-700">
-                Enterprise Technology Solutions
-              </span>
+          <div className="text-center mb-16 lg:mb-20">
+            <div className={`inline-flex items-center gap-3 px-5 py-2.5 bg-white/90 backdrop-blur-sm rounded-full mb-10 border border-blue-100 shadow-sm transition-all duration-700 ${textReveal ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-blue-700 tracking-wide">
+                  SOFTWARE DEVELOPMENT EXCELLENCE
+                </span>
+              </div>
             </div>
 
-            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight mb-6 transition-all duration-1000 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-              Intelligent Digital
-              <span className="block font-normal relative">
-                <span className="relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 bg-clip-text text-transparent">
-                  Transformation
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-gray-900 leading-tight mb-8 transition-all duration-1000 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              Building Digital
+              <span className="block font-normal mt-2">
+                <span className="relative">
+                  <span className="relative z-10 bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
+                    Solutions That Scale
+                  </span>
+                  <span className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-indigo-600/20 blur-2xl -z-10"></span>
                 </span>
-                {/* Glow effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 blur-xl opacity-30 -z-0"></span>
               </span>
-              For Modern Enterprises
+              For Tomorrow's Challenges
             </h1>
             
-            <p className={`text-lg text-gray-700 max-w-2xl mx-auto mb-10 transition-all duration-1000 delay-300 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-              PT. Nutanics delivers strategic technology solutions that drive innovation, 
-              optimize operations, and create sustainable competitive advantages.
+            <p className={`text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed transition-all duration-1000 delay-300 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              We transform complex business needs into elegant, scalable software solutions. 
+              From concept to deployment, we build technology that drives growth and innovation.
             </p>
 
             {/* CTA Buttons */}
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 delay-500 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-              <button className="group relative px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium rounded-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative flex items-center gap-2">
-                  <span>Start Partnership</span>
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <div className={`flex flex-col sm:flex-row gap-5 justify-center transition-all duration-1000 delay-500 ${textReveal ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <button className="group relative px-9 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium rounded-xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-center justify-center gap-3">
+                  <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
+                  <span className="tracking-wide">Start Your Project</span>
                 </div>
               </button>
               
-              <button className="group px-8 py-3 bg-white/80 backdrop-blur-sm border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-white hover:border-blue-300 hover:text-blue-700 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              <button className="group px-9 py-3.5 bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 font-medium rounded-xl hover:border-blue-300 hover:text-blue-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="flex items-center justify-center gap-3">
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
-                  <span>View Our Work</span>
+                  <span className="tracking-wide">View Our Codebase</span>
                 </div>
               </button>
             </div>
           </div>
 
-          {/* Services Grid */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-3">Our Core Services</h2>
-              <p className="text-gray-700 max-w-2xl mx-auto">
-                Comprehensive solutions designed for enterprise success
+          {/* Services Grid - Modernized */}
+          <div className="mb-20 lg:mb-24">
+            <div className="text-center mb-14">
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">Our Development Stack</h2>
+              <p className="text-gray-700 max-w-2xl mx-auto text-lg">
+                End-to-end solutions crafted with modern technologies
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {services.map((service, index) => (
                 <div
                   key={index}
-                  className={`group relative p-6 bg-white/90 backdrop-blur-sm rounded-xl border border-white/20 hover:border-blue-200 hover:shadow-2xl transition-all duration-300 ${
-                    hoveredService === index ? 'transform scale-[1.02]' : ''
+                  className={`group relative p-7 bg-white/95 backdrop-blur-sm rounded-2xl border border-white/40 hover:border-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
+                    hoveredService === index ? 'ring-2 ring-blue-500/20' : ''
                   }`}
                   onMouseEnter={() => setHoveredService(index)}
                   onMouseLeave={() => setHoveredService(null)}
+                  style={{
+                    transform: hoveredService === index ? 'translateY(-8px)' : 'none',
+                    transition: 'all 0.3s ease'
+                  }}
                 >
-                  {/* Colorful Background Blur */}
-                  <div className={`absolute inset-0 rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${
-                    index === 0 ? 'bg-gradient-to-r from-blue-400 to-cyan-400' :
-                    index === 1 ? 'bg-gradient-to-r from-indigo-400 to-blue-400' :
-                    index === 2 ? 'bg-gradient-to-r from-cyan-400 to-teal-400' :
-                    'bg-gradient-to-r from-purple-400 to-pink-400'
-                  }`}></div>
+                  {/* Gradient glow on hover */}
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                   
                   <div className="relative">
-                    <div className="mb-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        index === 0 ? 'bg-blue-100 text-blue-600' :
-                        index === 1 ? 'bg-indigo-100 text-indigo-600' :
-                        index === 2 ? 'bg-cyan-100 text-cyan-600' :
-                        'bg-purple-100 text-purple-600'
-                      }`}>
-                        {index === 0 && (
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                        )}
-                        {index === 1 && (
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4 4 0 003 15z" />
-                          </svg>
-                        )}
-                        {index === 2 && (
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                          </svg>
-                        )}
-                        {index === 3 && (
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                        )}
-                      </div>
+                    {/* Icon container */}
+                    <div className={`mb-5 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} text-white shadow-lg`}>
+                      {service.icon}
                     </div>
                     
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.name}</h3>
-                    <p className="text-gray-600 text-sm">{service.description}</p>
+                    {/* Service title */}
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors">
+                      {service.name}
+                    </h3>
                     
-                    <div className={`mt-4 h-1 rounded-full transition-all duration-300 ${
-                      index === 0 ? 'bg-gradient-to-r from-blue-500 to-cyan-500' :
-                      index === 1 ? 'bg-gradient-to-r from-indigo-500 to-blue-500' :
-                      index === 2 ? 'bg-gradient-to-r from-cyan-500 to-teal-500' :
-                      'bg-gradient-to-r from-purple-500 to-pink-500'
-                    } ${hoveredService === index ? 'w-full' : 'w-12'}`}></div>
+                    {/* Description */}
+                    <p className="text-gray-600 mb-5 leading-relaxed">
+                      {service.description}
+                    </p>
+                    
+                    {/* Animated underline */}
+                    <div className={`h-0.5 bg-gradient-to-r ${service.color} transition-all duration-500 ${
+                      hoveredService === index ? 'w-full' : 'w-16'
+                    }`}></div>
+                    
+                    {/* Hover tech badges */}
+                    <div className="mt-4 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {index === 0 && ['React', 'Node.js', 'TypeScript'].map(tech => (
+                        <span key={tech} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-md">
+                          {tech}
+                        </span>
+                      ))}
+                      {index === 1 && ['AWS', 'Azure', 'Kubernetes'].map(tech => (
+                        <span key={tech} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-md">
+                          {tech}
+                        </span>
+                      ))}
+                      {index === 2 && ['TensorFlow', 'Python', 'ML'].map(tech => (
+                        <span key={tech} className="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-md">
+                          {tech}
+                        </span>
+                      ))}
+                      {index === 3 && ['Docker', 'CI/CD', 'Security'].map(tech => (
+                        <span key={tech} className="px-2 py-1 bg-violet-100 text-violet-700 text-xs rounded-md">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Stats & Achievements */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-white/20 p-8 mb-20 shadow-xl">
-            <div className="grid lg:grid-cols-2 gap-12">
+          {/* Stats & Tech Stack */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-white/40 p-8 lg:p-10 mb-20 shadow-2xl">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
               {/* Left - Stats */}
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-8">Our Impact in Numbers</h2>
+                <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-10">By The Numbers</h2>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-5">
                   {stats.map((stat, index) => (
                     <div 
                       key={index}
-                      className={`p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-all duration-300 ${
-                        activeStat === index ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 transform -translate-y-1' : 'bg-white'
+                      className={`p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-500 cursor-pointer ${
+                        activeStat === index 
+                          ? 'bg-gradient-to-br from-blue-50/80 to-cyan-50/80 border-blue-200 transform -translate-y-1' 
+                          : 'bg-white/80'
                       }`}
                       onMouseEnter={() => setActiveStat(index)}
                     >
-                      <div className="text-3xl font-light text-gray-900 mb-1">{stat.value}</div>
-                      <div className={`font-medium mb-1 ${
-                        index === 0 ? 'text-blue-600' :
-                        index === 1 ? 'text-cyan-600' :
-                        index === 2 ? 'text-indigo-600' :
-                        'text-purple-600'
-                      }`}>{stat.label}</div>
-                      <div className="text-gray-600 text-sm">{stat.description}</div>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="text-3xl lg:text-4xl font-light text-gray-900 mb-2">{stat.value}</div>
+                          <div className={`font-semibold text-lg mb-1 ${stat.color}`}>{stat.label}</div>
+                          <div className="text-gray-600 text-sm">{stat.description}</div>
+                        </div>
+                        <div className="text-2xl opacity-80">{stat.icon}</div>
+                      </div>
+                      
+                      {/* Progress indicator */}
+                      <div className="mt-4 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full bg-gradient-to-r ${stat.color.replace('text-', 'bg-')} transition-all duration-1000 ${
+                            activeStat === index ? 'w-full' : 'w-0'
+                          }`}
+                        ></div>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Right - Achievements */}
+              {/* Right - Tech Stack */}
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-8">Awards & Recognition</h2>
+                <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-10">Our Technology Stack</h2>
                 
                 <div className="space-y-6">
-                  <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                  <div className="p-6 bg-gradient-to-r from-blue-50/60 to-cyan-50/60 rounded-2xl border border-blue-100/50">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                        </svg>
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                        </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">Innovation Excellence 2024</h3>
-                        <p className="text-gray-600 text-sm">Tech Leaders Summit - For outstanding digital transformation solutions</p>
+                        <h3 className="font-semibold text-gray-900 mb-2">Frontend Excellence</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {['React', 'Next.js', 'Vue', 'TypeScript'].map(tech => (
+                            <span key={tech} className="px-3 py-1 bg-white text-blue-600 text-sm font-medium rounded-full border border-blue-200">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+                  <div className="p-6 bg-gradient-to-r from-indigo-50/60 to-purple-50/60 rounded-2xl border border-indigo-100/50">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                        <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
+                          </svg>
+                        </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">ISO 27001 Certified</h3>
-                        <p className="text-gray-600 text-sm">Enterprise Security & Data Protection Standards</p>
+                        <h3 className="font-semibold text-gray-900 mb-2">Backend & Cloud</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {['Node.js', 'Python', 'AWS', 'Azure'].map(tech => (
+                            <span key={tech} className="px-3 py-1 bg-white text-indigo-600 text-sm font-medium rounded-full border border-indigo-200">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="p-6 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-xl border border-cyan-100">
+                  <div className="p-6 bg-gradient-to-r from-cyan-50/60 to-teal-50/60 rounded-2xl border border-cyan-100/50">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <svg className="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                        </svg>
+                        <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                          </svg>
+                        </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">Best Enterprise Solution 2023</h3>
-                        <p className="text-gray-600 text-sm">Global Business Awards - Cloud Infrastructure Category</p>
+                        <h3 className="font-semibold text-gray-900 mb-2">AI & Data Science</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {['TensorFlow', 'PyTorch', 'ML', 'Big Data'].map(tech => (
+                            <span key={tech} className="px-3 py-1 bg-white text-cyan-600 text-sm font-medium rounded-full border border-cyan-200">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -279,16 +395,30 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Trusted By */}
+          {/* Tech Partners */}
           <div className="text-center">
-            <p className="text-gray-700 mb-8">Trusted by leading enterprises worldwide</p>
+            <p className="text-gray-700 text-lg mb-10">Trusted by innovative teams at</p>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="group flex items-center justify-center p-4">
-                  <div className="w-32 h-12 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
-                    <div className="text-gray-500 font-medium text-sm group-hover:text-blue-600 transition-colors duration-300">
-                      Client {i + 1}
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-6">
+              {[
+                { name: 'TechCorp', color: 'blue' },
+                { name: 'DataFlow', color: 'cyan' },
+                { name: 'CloudNet', color: 'indigo' },
+                { name: 'SoftWorks', color: 'purple' },
+                { name: 'AI Labs', color: 'violet' },
+                { name: 'DevHub', color: 'pink' }
+              ].map((company, i) => (
+                <div key={i} className="group p-4">
+                  <div className="w-full h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/40 hover:border-white hover:shadow-xl transition-all duration-300">
+                    <div className={`text-sm font-medium bg-gradient-to-r ${
+                      company.color === 'blue' ? 'from-blue-600 to-cyan-600' :
+                      company.color === 'cyan' ? 'from-cyan-600 to-teal-600' :
+                      company.color === 'indigo' ? 'from-indigo-600 to-purple-600' :
+                      company.color === 'purple' ? 'from-purple-600 to-pink-600' :
+                      company.color === 'violet' ? 'from-violet-600 to-fuchsia-600' :
+                      'from-pink-600 to-rose-600'
+                    } bg-clip-text text-transparent`}>
+                      {company.name}
                     </div>
                   </div>
                 </div>
@@ -298,11 +428,20 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Animated Background Element */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none"></div>
 
-      {/* Custom CSS */}
+      {/* Custom Animations */}
       <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+          50% { transform: translateY(-20px) translateX(10px); opacity: 0.2; }
+        }
+        
+        .animate-float {
+          animation: float 20s ease-in-out infinite;
+        }
+        
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }
@@ -310,6 +449,16 @@ const Hero = () => {
         
         .animate-pulse {
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Smooth transitions */
+        * {
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Glow effect for text */
+        .glow-text {
+          text-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
         }
       `}</style>
     </section>

@@ -75,16 +75,16 @@ const Header = () => {
               <div className="absolute -inset-3 bg-gradient-to-r from-blue-400/30 via-cyan-400/30 to-blue-500/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               
               {/* Blue gradient border */}
-              <div className="relative p-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 rounded-xl animate-gradient">
-                <div className="p-2 bg-white rounded-lg shadow-inner">
+              {/* <div className="relative p-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 rounded-xl animate-gradient"> */}
+                {/* <div className="p-2 bg-white rounded-lg shadow-inner"> */}
                   <img 
                     src="https://res.cloudinary.com/doafwrddd/image/upload/v1766039070/Nutanicsss_tdslfm.png" 
                     alt="PT. Nutanics - Cyber Security Solutions" 
                     className="h-10 w-auto object-contain filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
                     loading="eager"
                   />
-                </div>
-              </div>
+                {/* </div> */}
+              {/* </div> */}
             </div>
             
             {/* Company name dengan blue gradient */}
