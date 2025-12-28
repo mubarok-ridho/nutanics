@@ -102,8 +102,8 @@ const Services = () => {
   ]
 
   const stats = [
-    { value: '100%', label: 'Client Satisfaction', icon: <CheckCircle className="w-5 h-5" /> },
-    { value: '50+', label: 'Projects Delivered', icon: <Database className="w-5 h-5" /> },
+    { value: '99.7%', label: 'Client Satisfaction', icon: <CheckCircle className="w-5 h-5" /> },
+    { value: '98%', label: 'Clean Architecture', icon: <Database className="w-5 h-5" /> },
     { value: '24/7', label: 'Support Available', icon: <Headphones className="w-5 h-5" /> },
   ]
 
@@ -241,73 +241,6 @@ const Services = () => {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-blue-700 to-cyan-600 rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-white overflow-hidden shadow-2xl"
-        >
-          <div className="relative z-10">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-              {/* Left Content */}
-              <div className="lg:flex-1">
-                <h3 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-6">
-                  Butuh Solusi IT yang Disesuaikan?
-                </h3>
-                <p className="text-blue-100 mb-6 lg:mb-8 text-sm lg:text-base leading-relaxed">
-                  Konsultasikan kebutuhan IT Anda dengan tim ahli kami. Kami akan membantu merancang solusi yang tepat untuk bisnis Anda.
-                </p>
-                
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 lg:px-8 py-3 lg:py-4 bg-white text-blue-700 font-semibold rounded-xl hover:shadow-2xl hover:shadow-white/30 transition-all duration-300 flex items-center justify-center gap-3"
-                  >
-                    <Calendar className="w-4 h-4 lg:w-5 lg:h-5" />
-                    <span className="text-sm lg:text-base">Jadwalkan Konsultasi</span>
-                  </motion.button>
-                  
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3"
-                  >
-                    <Download className="w-4 h-4 lg:w-5 lg:h-5" />
-                    <span className="text-sm lg:text-base">Download Brochure</span>
-                  </motion.button>
-                </div>
-              </div>
-              
-              {/* Stats Grid */}
-              <div className="lg:flex-1 grid grid-cols-3 gap-4 lg:gap-6">
-                {stats.map((stat, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-colors group/stat"
-                  >
-                    <div className="text-xl lg:text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-                      {stat.icon}
-                      <span>{stat.value}</span>
-                    </div>
-                    <div className="text-xs lg:text-sm text-blue-100 mt-1">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          {/* Background Elements */}
-          <div className="absolute top-0 right-0 w-32 h-32 lg:w-64 lg:h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 lg:w-64 lg:h-64 bg-gradient-to-tr from-white/5 to-transparent rounded-full blur-3xl" />
-        </motion.div>
-
         {/* Additional Info */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -330,9 +263,8 @@ const Services = () => {
               </div>
               <ul className="space-y-3">
                 {[
-                  'Tim ahli dengan sertifikasi internasional',
+                  'Proffesioanl Team',
                   'Solusi yang dapat disesuaikan',
-                  'Dukungan 24/7',
                   'Implementasi cepat dan efisien'
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center text-sm text-gray-700">

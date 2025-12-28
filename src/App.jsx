@@ -3,9 +3,8 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Services from './components/Services'
 import Clients from './components/Clients'
-// import Technology from './components/Technology'
 import Contact from './components/Contacts'
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -27,7 +26,7 @@ function App() {
         <Clients />
         {/* <Technology /> */}
         <Contact />
-        {/* <Footer /> */}
+        <Footer />
       </div>
       
       {/* Back to Top Button */}

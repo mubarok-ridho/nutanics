@@ -5,9 +5,6 @@ const Clients = () => {
     { name: 'Bank Nasional', sector: 'Financial', logo: '🏦' },
     { name: 'Telco Indonesia', sector: 'Telecommunication', logo: '📡' },
     { name: 'E-commerce Giant', sector: 'E-commerce', logo: '🛒' },
-    { name: 'Healthcare Group', sector: 'Healthcare', logo: '🏥' },
-    { name: 'Government Agency', sector: 'Government', logo: '🏛️' },
-    { name: 'Manufacturing Corp', sector: 'Manufacturing', logo: '🏭' },
   ]
 
   return (
@@ -41,34 +38,6 @@ const Clients = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Testimonials */}
-        <div className="mt-16 bg-gradient-to-r from-nutanics-blue/5 to-nutanics-dark/5 rounded-2xl p-8">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-nutanics-blue to-nutanics-dark rounded-full flex items-center justify-center">
-              <Building2 className="text-white" size={24} />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-nutanics-dark">Apa Kata Klien Kami</h3>
-              <p className="text-nutanics-gray">Testimoni dari mitra kami</p>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <p className="text-nutanics-gray italic mb-4">
-                "PT. Nutanics membantu kami mengamankan sistem banking dengan solusi yang komprehensif. Tim profesional dan responsif."
-              </p>
-              <div className="font-semibold text-nutanics-dark">CTO, Bank Nasional</div>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <p className="text-nutanics-gray italic mb-4">
-                "Implementasi keamanan cloud oleh Nutanics sangat smooth. SLA 99.9% mereka benar-benar terpenuhi."
-              </p>
-              <div className="font-semibold text-nutanics-dark">IT Director, E-commerce Giant</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

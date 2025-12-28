@@ -1,8 +1,11 @@
-import { Shield, Facebook, Twitter, Linkedin, Instagram, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { Mail, Phone, MapPin, ChevronRight } from 'lucide-react'
 
 const Footer = () => {
+  const [email, setEmail] = useState('')
+
   const quickLinks = [
-    { name: 'Home', href: '#home' },
+    { name: 'Beranda', href: '#home' },
     { name: 'Tentang Kami', href: '#about' },
     { name: 'Layanan', href: '#services' },
     { name: 'Klien', href: '#clients' },
@@ -10,61 +13,56 @@ const Footer = () => {
   ]
 
   const services = [
-    { name: 'Security Audit' },
-    { name: 'Data Protection' },
-    { name: 'Cloud Security' },
-    { name: 'Network Defense' },
+    { name: 'Security Solution' },
+    { name: 'General IT Services' },
+    { name: 'Cloud Computing' },
+    { name: 'IT Infrastucture' },
   ]
 
-  const socials = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
+  const contactInfo = [
+    { icon: Mail, text: 'commercial@nutanics.co.id', href: 'mailto:commercial@nutanics.co.id' },
+    { icon: Phone, text: '+62 21 1234 5678', href: 'tel:+622112345678' },
+    { icon: MapPin, text: 'Jl. Abadi Setia Budi, Medan', href: 'https://maps.app.goo.gl/NzH8t5sUZYpgPSjC9' },
   ]
+
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    if (email) {
+      alert('Terima kasih telah berlangganan newsletter!')
+      setEmail('')
+    }
+  }
 
   return (
-    <footer className="bg-nutanics-dark text-white">
-      <div className="section-padding">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Main Footer Content */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-nutanics-blue to-cyan-400 rounded-lg flex items-center justify-center">
-                <Shield className="text-white" size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold">PT. Nutanics</h3>
-                <p className="text-sm text-cyan-100">Numerik Talenta Teknologi</p>
-              </div>
-            </div>
-            <p className="text-cyan-100/80 mb-6">
-              Penyedia solusi keamanan siber terdepan di Indonesia, berkomitmen melindungi ekosistem digital bisnis Anda.
-            </p>
-            <div className="flex space-x-4">
-              {socials.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  className="w-10 h-10 bg-nutanics-black/30 hover:bg-nutanics-blue rounded-lg flex items-center justify-center transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon size={20} />
-                </a>
-              ))}
+          <div className="lg:col-span-1">
+            <div className="mb-6">
+              <img
+                src="https://res.cloudinary.com/doafwrddd/image/upload/v1766936388/Screenshot_2025-12-28_223621-removebg-preview_fjetbl.png"
+                alt="Pt. Nutanics"
+                className="w-32 h-auto mb-4"
+              />
+              <p className="text-gray-400 text-sm">
+                Penyedia solusi keamanan siber terdepan di Indonesia, berkomitmen melindungi ekosistem digital bisnis Anda.
+              </p>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Tautan Cepat</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold mb-4 text-white">Tautan Cepat</h4>
+            <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-cyan-100/80 hover:text-white hover:underline transition-colors"
+                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-1"
                   >
+                    <ChevronRight className="w-3 h-3" />
                     {link.name}
                   </a>
                 </li>
@@ -74,44 +72,59 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Layanan</h4>
-            <ul className="space-y-3">
+            <h4 className="font-semibold mb-4 text-white">Layanan</h4>
+            <ul className="space-y-2">
               {services.map((service) => (
-                <li key={service.name} className="text-cyan-100/80">
-                  {service.name}
+                <li key={service.name}>
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+                    {service.name}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Newsletter</h4>
-            <p className="text-cyan-100/80 mb-4">
-              Dapatkan update terbaru tentang keamanan siber dan tips keamanan.
-            </p>
-            <div className="flex mb-4">
-              <input
-                type="email"
-                placeholder="Email Anda"
-                className="flex-1 px-4 py-3 bg-nutanics-black/30 border border-cyan-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-              />
-              <button className="px-4 bg-gradient-to-r from-nutanics-blue to-cyan-400 hover:opacity-90 transition-opacity rounded-r-lg">
-                <Mail size={20} />
-              </button>
+            <h4 className="font-semibold mb-4 text-white">Kontak</h4>
+            <div className="space-y-3">
+              {contactInfo.map((info, idx) => (
+                <a
+                  key={idx}
+                  href={info.href}
+                  target={info.icon === MapPin ? '_blank' : '_self'}
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
+                >
+                  <info.icon className="w-4 h-4" />
+                  <span className="break-words">{info.text}</span>
+                </a>
+              ))}
             </div>
-            <p className="text-sm text-cyan-100/60">
-              Bergabung dengan 1000+ profesional IT
-            </p>
           </div>
         </div>
 
-        <div className="border-t border-cyan-900 mt-12 pt-8 text-center text-cyan-100/60">
-          <p>© {new Date().getFullYear()} PT. Numerik Talenta Teknologi. Semua hak dilindungi undang-undang.</p>
-          <div className="mt-4 flex justify-center space-x-6 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Kebijakan Privasi</a>
-            <a href="#" className="hover:text-white transition-colors">Syarat Layanan</a>
-            <a href="#" className="hover:text-white transition-colors">Kebijakan Cookie</a>
+        {/* Divider */}
+        <div className="border-t border-gray-800 my-6" />
+
+        {/* Copyright Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Copyright */}
+          <div className="text-gray-500 text-sm">
+            <p>© {new Date().getFullYear()} PT. Numerik Talenta Teknologi. All rights reserved.</p>
+          </div>
+
+          {/* Legal Links */}
+          <div className="flex flex-wrap gap-4 text-sm">
+            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              Kebijakan Privasi
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              Syarat Layanan
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              Peta Situs
+            </a>
           </div>
         </div>
       </div>
